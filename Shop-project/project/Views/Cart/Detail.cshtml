@@ -1,0 +1,162 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@using project.Models
+@model Cart
+<!DOCTYPE html>
+<html id="content">
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Cart details</title>
+        <!--CSS-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        <link rel="stylesheet" href="~/asserts/css/style.css" />
+        <link rel="stylesheet" href="~/asserts/css/stylecartdetails.css" />
+        <!--font-awesome-->
+        <script src="https://kit.fontawesome.com/3c84cb624f.js" crossorigin="anonymous"></script>
+        <!--Ajax-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    </head>
+
+    <body>
+   
+        <div class="header">
+            
+            </div>
+            <div class="container-lg mb-5" >
+                <div class="row">
+                    <div class="col-12" >
+                        <div class="p-3 bg-white rounded shadow-sm mb-3">
+                            <div class="text-center">
+                                <h3 class="pb-3 text-uppercase font-weight-bold">My Cart</h3>
+                            </div>
+                            <!-- Shopping cart table -->
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr class="text-center">
+                                        
+                                        <th>ID</th>
+                                        <th>Sản Phẩm</th>
+                                        <th>Đơn Giá</th>
+                                        <th>Số lượng</th>
+                                        <th>Tổng</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-group-divider">
+                            @foreach(Item i in Model.items)
+                            {
+                           
+                            <tr style="height: 100px" id="items">
+                                        <td class="align-middle">
+                                            <p class="mb-0 product-id-cart-contact">
+                                                 @i.Product.ProductId
+                                            </p>
+                                        </td>
+                                        <td class="align-middle" style="width: 30%">
+                                            <div class="row">
+                                                <div class="col-5 my-auto">
+                                                    <img src="@i.Product.Thumbnail" alt="" class="img-fluid rounded" style="cursor: pointer"/>
+                                                </div>
+                                                    <a href="/product/detail/@i.Product.ProductId" class="text-decoration-none text-muted col" style="align-self: center">
+                                                    <b class="product-title">@i.Product.ProductName</b>
+                                                </a>
+                                            </div>
+                                        </td>
+                                        <td class="align-middle" id="price-items">
+                                          
+                                            <b class="d-flex justify-content-center" >
+                                              @( (i.Product.SalePrice==null)?$"{i.Product.OriginalPrice}":$"{i.Product.SalePrice}") đ
+                                            </b>
+                                        </td>
+                                        <td class="align-middle">
+                                            <div class="d-flex justify-content-center">
+                                                <div class="change-item">
+                                                    <a class="btn btn-outline-success" id="down"  href="/cart/Decrease/@i.Product.ProductId/-1"
+                                                       >-</a>
+                                                 <b id="quantity" class="quantity">@i.quantity</b>
+                                                <a class="btn btn-outline-success" id="up" href="/cart/Increase/@i.Product.ProductId/1"
+                                                      >+</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <!--format number of price-->
+                                        <td class="align-middle" >
+                                            
+                                            <b class="d-flex justify-content-center"  style="color: red;">
+                                                 @( i.price*i.quantity) đ
+                                            </b> 
+                                        </td>
+                                        <td class="align-middle">
+                                        <form action="/Cart/Delete" method="post" id="Delete-form">
+                                             <button id="submit" type="submit"  class="btn btn-danger">Delete</button>
+                                             <input type="hidden" name="id" value="@i.Product.ProductId"/>
+                                        </form>
+                        
+                                    </td>
+                                    </tr>
+                                
+                                }
+
+                                <!--</div>-->
+                            </tbody>
+                        </table>
+                        <!-- End -->
+                        <section class="home-sp">
+                            <div class="page-trang table">
+                                <a href="#"></a>
+                                <a href="#"></a>
+                            </div>
+                        </section>
+
+                    </div>
+                   <form action="checkout" method="get">      
+                    <div class="p-3 bg-white rounded shadow-sm">
+                        <div class="text-center">
+                            <h3 class="pb-3 text-uppercase font-weight-bold">Cart detail</h3>
+                        </div>
+                        <div class="p-4">
+                            <ul class="list-unstyled mb-4">
+                                <li class="d-flex justify-content-between py-3 border-bottom"><b class="text-muted" >Tạm tính</b>
+                                    <h5 class="font-weight-bold" id="subtotal-final" style="color: red;">@Model.GetTotalMoney() đ</h5>
+                                </li>
+                                <li class="d-flex justify-content-between py-3 border-bottom"><b class="text-muted">Phí vận chuyển</b> 
+                                     <!--Total price >= 1.000.000 free ship-->
+                                    
+                                    
+                                     <h5 class="font-weight-bold" id="freight" style="color: red;">Free ship</h5>
+                                </li>
+                                <li class="d-flex justify-content-between py-3 border-bottom"><b class="text-muted">Tổng tiền</b>
+                                    <h5 class="font-weight-bold" id="total-final" style="color: red;">@Model.GetTotalMoney()đ</h5>
+                                </li>
+                            </ul>
+                            <div class="d-flex justify-content-end">
+                               
+                                    <!--Disable order now function when cart empty-->
+                                   <a href="/home/list" class="btn">Mua sau</a>
+                                       <button @(
+                                           (Model.items.Count==0)?"disabled":""
+                                           
+                                       ) 
+                                       type="button" id="submit-cart" class="btn btn-outline-primary ms-3" onclick="window.location.href='/cart/contact'" >Đặt Hàng</button>
+                            </div>
+
+                        </div>
+                    </div>
+                      </form>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+        
+    <script>
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    </script>
+    
+</html>
