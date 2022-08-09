@@ -1,0 +1,166 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    @using project.Models
+    @using System;
+    @model Account
+    Layout = "_layout";
+    <script src="~/asserts/js/form.js"></script>
+     <link rel="stylesheet" href="~/asserts/css/profile.css">
+}
+   <div class="grid__row main-profile-category">
+            <div class="grid__column-2">
+               <div class="profile">
+                  <div class="profile__heading">
+                     <div class="profile__heading profile__heading-avatar">
+                        <img src="https://cf.shopee.vn/file/e4b8614be265b210727bdef25190db23_tn" alt="avatar">
+                     </div>
+                     <div class="profile__heading profile__heading-content">
+                        <div class="profile__heading profile__heading-content profile__heading-content-acount">
+                           Dũng Bùi
+                        </div>
+                        <div class="profile__heading profile__heading-content profile__heading-content-title">
+                           <i class="fa-solid fa-pen profile__heading-content-fix profile__heading-content-fix-icon"></i>
+                           <a class=" profile__heading profile__heading-content profile__heading-content-fix">
+                           sửa hồ sơ
+                           </a>
+                        </div>
+                     </div>
+                  </div>
+                  <ul class="profile-list">
+                     <h class="profile__heading-item"><i class="fa-solid fa-user profile__heading-item-icon "></i> 
+                        Tài khoản của tôi
+                     </h>
+                     <!-- <li class="profile-item profile-item">
+                        <a href="#" class="profile-item__link profile-item__link-main">Tài khoản của tôi</a>
+                        </li> -->
+                     <li class="profile-item profile-item--active">
+                        <a href="/user/profile" class="profile-item__link">Hồ Sơ</a>
+                     </li>
+                     <li class="profile-item">
+                        <a href="address.jsp" class="profile-item__link">Địa chỉ</a>
+                     </li>
+                     <li class="profile-item">
+                        <a href="/user/changepassword" class="profile-item__link">Đổi mật khẩu</a>
+                     </li>
+                     <div class="profile-item__link-group">
+                        <img src="https://cf.shopee.vn/file/f0049e9df4e536bc3e7f140d071e9078" alt="" class="profile-item profile-item-img">
+                        <li class="profile-item">
+                           <a href="/user/myorder" class="profile-item__link">Đơn mua</a>
+                        </li>
+                     </div>
+                  </ul>
+               </div>
+            </div>
+            <!-- /* Home Information  */ -->
+            <div class="grid__column-10" style="background-color: #fff; box-shadow: 0 0 2px #ccc; position: relative ; height:700px">
+               <div class="profile__form">
+                  <!-- heading form-->
+                  <div class="profile__form--heading">
+                     <div class="profile__form--heading profile__form--heading-title">
+                        <h1 class="profile__form--heading profile__form--heading-title-content">
+                           Hồ sơ của tôi
+                        </h1>
+                     </div>
+                     <div class="profile__form--heading profile__form--heading-title-description">Quản lý thông tin hồ sơ để bảo mật tài khoản</div>
+                  </div>
+                  <!--Bodyform-->
+                  <div class=" main-profile-form grid__column-8">
+                     <div class="body-base columns"></div>
+                     <form action="/user/UpdateProfile" method="post" id="form-profile" style="width: 100%" onsubmit="return false">
+                     <div class="form--body">
+                     </div>
+                   
+                     <div class="form-item">
+                        <div class="form-item  form-item__shopname-label">
+                           <p>Tên </p>
+                        </div>
+                        <div class="form-item  form-item__shopname-output">
+       
+                            <input id="name" oninput="CheckName()" required type="text" placeholder="@Model.Name" value="@Model.Name" name="name" maxlength="255" class="form-item__shopname-output form-item__shopname-output--input">
+                           <!-- <button  class=" form-item  form-item__phone-output form-item__phone-output--btn"></button> -->
+                            <span class="err" id="err-name">Name do not empty</span>
+                       </div>
+                         
+                     </div>
+
+                      <div class="form-item">
+                        <div class="form-item  form-item__email-label " name="email">
+                           <p style="margin-top:10px">Email</p>
+                        </div>
+                        <div class="form-item  form-item__email-output">
+                           <div class="form-item__email-output form-item__email-output--content"  value="" >@Model.Email</div>
+                           <button  class=" form-item  form-item__email-output form-item__email-output--btn" ></button>
+                        </div>
+                     </div>
+                    
+                     <div class="form-item">
+                        <div class="form-item  form-item__shopname-label">
+                           <p>Điện thoại</p>
+                        </div>
+                        <div class="form-item  form-item__shopname-output">
+                            <input id="phone" oninput="CheckPhone()" required type="text" value="@Model.Mobile"  name="phone"  maxlength="255" class="form-item__shopname-output form-item__shopname-output--input">
+                           <!-- <button  class=" form-item  form-item__phone-output form-item__phone-output--btn"></button> -->
+                           <span class="err" id="err-phone">Phone do not empty</span>
+                        </div>
+                     </div>
+                     <div class="form-item">
+                        <div class="form-item  form-item__shopname-label">
+                           <p>Thành Phố</p>
+                        </div>
+                        <div class="form-item  form-item__shopname-output">
+                            <input id="city" oninput="CheckCity()" required type="text" value="@Model.City"  name="city"  maxlength="255" class="form-item__shopname-output form-item__shopname-output--input">
+                           <!-- <button  class=" form-item  form-item__phone-output form-item__phone-output--btn"></button> -->
+                           <span class="err" id="err-city">City do not empty</span>
+                        </div>
+                     </div>
+                     <div class="form-item">
+                        <div class="form-item  form-item__shopname-label">
+                           <p>Address</p>
+                        </div>
+                        <div class="form-item  form-item__shopname-output">
+                            <input oninput="CheckAddress()" required type="text" id="address" value="@Model.Address" placeholder="@Model.Address" name="address"  maxlength="255" class="form-item__shopname-output form-item__shopname-output--input">
+                           <!-- <button  class=" form-item  form-item__phone-output form-item__phone-output--btn"></button> -->
+                           <span class="err" id="err-address">Address do not empty</span>
+                        </div>
+                     </div> 
+                   
+                     <div class="form-item">
+                        <div class="form-item  form-gender-label">
+                           <p>Giới tính</p>
+                        </div>
+                        <div class="form-item  form-gender-output">
+                           <div class="form-gender-output form-gender-output--option">
+                            
+                               
+                              <div class="form-gender-output--option-male">
+                                  <input type="radio" id="male" name="gender" value="1" @(Model.Gender==true?"checked":"") >
+                                 <label for="male" >Nam</label><br>
+                              </div>
+                              <div class="form-gender-output--option-female">
+                                  <input type="radio" id="female" name="gender" value="0" @(Model.Gender==false?"checked":"")  />
+                                 <label for="female">Nữ</label><br>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                        <div class="form-item">
+                        <div class="form-item  form-item__shopname-label">
+                           <p>Ngày Sinh</p>
+                        </div>
+                        <div class="form-item  form-item__shopname-output">
+                            <input required type="date" name="dob" value="@Model.Dob.Value.ToString("yyyy-MM-dd")"  name="address"  maxlength="255" class="form-item__shopname-output form-item__shopname-output--input">
+                           <!-- <button  class=" form-item  form-item__phone-output form-item__phone-output--btn"></button> -->
+                       </div>
+                     </div> 
+                     <div class="form-submit">
+                        <div class="auth-form__control form-submit-control">
+                            <button id="submit-btn" class="btn__small btn__small--primary form-submit-btn" type="button" onclick="submitProfile()">Lưu</button>
+                        </div>
+                     </div>
+                     </form>
+                  </div>
+               </div>
+            </div>
+         </div>

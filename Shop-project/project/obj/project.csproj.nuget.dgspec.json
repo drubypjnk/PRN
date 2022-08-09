@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Admin\\Desktop\\Shop-project-20220710T082318Z-001\\Shop-project\\project\\project.csproj": {}
+    "C:\\Users\\win\\Desktop\\Project-PRN\\Project-PRN\\Shop-project\\project\\project.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Admin\\Desktop\\Shop-project-20220710T082318Z-001\\Shop-project\\project\\project.csproj": {
+    "C:\\Users\\win\\Desktop\\Project-PRN\\Project-PRN\\Shop-project\\project\\project.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Admin\\Desktop\\Shop-project-20220710T082318Z-001\\Shop-project\\project\\project.csproj",
+        "projectUniqueName": "C:\\Users\\win\\Desktop\\Project-PRN\\Project-PRN\\Shop-project\\project\\project.csproj",
         "projectName": "project",
-        "projectPath": "C:\\Users\\Admin\\Desktop\\Shop-project-20220710T082318Z-001\\Shop-project\\project\\project.csproj",
-        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Admin\\Desktop\\Shop-project-20220710T082318Z-001\\Shop-project\\project\\obj\\",
+        "projectPath": "C:\\Users\\win\\Desktop\\Project-PRN\\Project-PRN\\Shop-project\\project\\project.csproj",
+        "packagesPath": "C:\\Users\\win\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\win\\Desktop\\Project-PRN\\Project-PRN\\Shop-project\\project\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\win\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -44,6 +40,10 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "DocumentFormat.OpenXml": {
+              "target": "Package",
+              "version": "[2.17.1, )"
+            },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
@@ -73,7 +73,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
         }
       }
     }

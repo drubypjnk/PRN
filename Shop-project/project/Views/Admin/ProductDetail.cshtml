@@ -1,0 +1,203 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+        Layout = "_layout_admin";
+    <link rel="stylesheet" href="~/asserts/css/ProductManager.css">
+    <link rel="stylesheet" href="~/asserts/css/profile.css">
+    <link rel="stylesheet" href="~/asserts/css/ProductDetail.css">
+    <script src="https://www.dukelearntoprogram.com/course1/common/js/image/SimpleImage.js">
+    </script>
+
+    @using project.Models
+    @model Product
+}
+<div class="grid__row main-profile-category " style="height: 852px">
+    <div class="grid__column-2">
+        <div class="category">
+            <h3 class="category__heading">
+                <i class="category__heading-icon fas fa-list"></i> Danh mục
+            </h3>
+            <ul class="category-list">
+
+                <li class="category-item " >
+                                    <a href="/admin/productmanager" class="category-item__link category-item--active">Quản lí sản phẩm</a>
+                                </li>
+                                <li class="category-item ">
+                                    <a href="/admin/ordermanager"  class="category-item__link">Quản lí đơn hàng</a>
+                                </li>
+                                <li class="category-item ">
+                                    <a href="analysis"  class="category-item__link">Thống kê</a>
+                                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- /* Home Information  */ -->
+    <div class="grid__column-10" style="background-color: #fff; box-shadow: 0 0 2px #ccc; position: relative ; height:815px">
+   <form action="/admin/updateProduct" method="post" id☻="form-product" style="width: 100%" enctype="multipart/form-data">
+        <div class="profile__form">
+            <!-- heading form-->
+            <div class="profile__form--heading">
+                <div class="profile__form--heading profile__form--heading-title">
+                    <h1 class="profile__form--heading profile__form--heading-title-content">
+                        Thông tin sản phẩm
+                    </h1>
+                </div>
+                <div class="profile__form--heading profile__form--heading-title-description">    Quản lí thông tin sản phẩm</div>
+            </div>
+            <!--Bodyform-->
+            <div class=" main-profile-form col-8">
+                <div class="body-base columns"></div>
+                    <div class="form--body">
+                    </div>
+
+                    <div class="form-item">
+                        <div class="form-item  form-item__shopname-label">
+                            <p>Tên sản phẩm</p>
+                        </div>
+                        <div class="form-item  form-item__shopname-output">
+                            <input required type="text" placeholder="@Model.ProductName" value="@Model.ProductName" name="NewProduct.ProductName" maxlength="255" class="form-item__shopname-output form-item__shopname-output--input">
+                            <!-- <button  class=" form-item  form-item__phone-output form-item__phone-output--btn"></button> -->
+                        </div>
+                    </div>
+                    <div class="form-item">
+                        <div class="form-item form-item__date-output form-item__date-output--day">
+                            <div class="form-item  form-item__date-label">
+                                <p>Thể loại</p>
+                            </div>
+                            <select name="NewProduct.CategoryId" class="form-item form-item__date-output form-item__date-output--day form-item--select">
+
+                                @foreach (Category c in ViewBag.categories)
+                                {
+                                <option @( c.CategoryId==@Model.CategoryId?" selected":"")
+                                
+                                    value="@c.CategoryId">
+                                      @c.CategoryName
+                                </option>
+                                }
+                                 
+                              </select>
+                               <button class=" form-item  form-item__phone-output form-item__phone-output--btn" style="background: none"></button>
+                           </div>
+                     </div>
+                     <div class="form-item">
+                        <div class="form-item  form-item__shopname-label">
+                           <p>Brand</p>
+                        </div>
+                        <div class="form-item  form-item__shopname-output">
+                            <input required type="text" placeholder="@Model.Brand" value="@Model.Brand" name="NewProduct.Brand" maxlength="255" class="form-item__shopname-output form-item__shopname-output--input">
+                           <!-- <button  class=" form-item  form-item__phone-output form-item__phone-output--btn"></button> -->
+                        </div>
+                     </div>
+                      
+                   
+                    
+                   
+                     <div class="form-item">
+                        <div class="form-item  form-item__shopname-label">
+                           <p>Nguồn gốc</p>
+                        </div>
+                        <div class="form-item  form-item__shopname-output">
+                            <input required type="text" value="@Model.Origin" placeholder="@Model.Origin" name="NewProduct.Origin"  maxlength="255" class="form-item__shopname-output form-item__shopname-output--input">
+                            <button  class=" form-item  form-item__phone-output form-item__phone-output--btn"style="background: none"></button> 
+                        </div>
+                     </div>
+                     <div class="form-item">
+                        <div class="form-item  form-item__shopname-label">
+                           <p>Mô tả</p>
+                        </div>
+                        <div class="form-item  form-item__shopname-output">
+                            <input required type="text" value="@Model.Describe" placeholder="@Model.Describe" name="NewProduct.Describe"  maxlength="255" class="form-item__shopname-output form-item__shopname-output--input">
+                            <button  class=" form-item  form-item__phone-output form-item__phone-output--btn"style="background: none"></button> 
+                        </div>
+                     </div>
+                     <div class="form-item">
+                        <div class="form-item  form-item__shopname-label">
+                           <p>Original Price</p>
+                        </div>
+                        <div class="form-item  form-item__shopname-output">
+                            <input required type="number" min="0" value="@Model.OriginalPrice" placeholder="@Model.OriginalPrice" name="NewProduct.OriginalPrice"  maxlength="255" class="form-item__shopname-output form-item__shopname-output--input">
+                            <button  class=" form-item  form-item__phone-output form-item__phone-output--btn"style="background: none"></button> 
+                        </div>
+                     </div>
+                     <div class="form-item">
+                        <div class="form-item  form-item__shopname-label">
+                           <p>Sale Price</p>
+                        </div>
+                        <div class="form-item  form-item__shopname-output">
+                            <input required type="number" min="0"  value="@Model.SalePrice" placeholder="@Model.SalePrice" name="NewProduct.SalePrice"  maxlength="255" class="form-item__shopname-output form-item__shopname-output--input">
+                            <button  class=" form-item  form-item__phone-output form-item__phone-output--btn"style="background: none"></button> 
+                        </div>
+                     </div>
+                     
+                     <div class="form-item">
+                        <div class="form-item  form-item__shopname-label">
+                           <p>Số lượng trong kho</p>
+                        </div>
+                        <div class="form-item  form-item__shopname-output">
+                            <input required type="number" min="1" value="@Model.UnitInStock" placeholder="" name="NewProduct.UnitInStock"  maxlength="255" class="form-item__shopname-output form-item__shopname-output--input">
+                            <button  class=" form-item  form-item__phone-output form-item__phone-output--btn"style="background: none"></button> 
+                        </div>
+                     </div>
+                    @* <div class="form-item">
+                        <div class="form-item  form-item__shopname-label">
+                           <p>Số lượng đã bán</p>
+                        </div>
+                        <div class="form-item  form-item__shopname-output">
+                            <input type="number" min="1" value="@Model.UnitOnOrder" placeholder="@Model.UnitOnOrder" name="unitOnOrder"  maxlength="255" class="form-item__shopname-output form-item__shopname-output--input">
+                            <button  class=" form-item  form-item__phone-output form-item__phone-output--btn"style="background: none"></button> 
+                        </div>
+                     </div> *@
+
+                     <input hidden value="@Model.UnitOnOrder" name="NewProduct.UnitOnOrder">
+                     <input hidden value="@Model.ProductId" name="NewProduct.ProductId">
+                     <input hidden value="@Model.Thumbnail" name="NewProduct.Thumbnail">
+                      <div class="form-item">
+                        <div class="form-item form-item__date-output form-item__date-output--day">
+                            <div class="form-item  form-item__date-label">
+                                <p>Feature</p>
+                            </div>
+                            <select name="NewProduct.Feature" class="form-item form-item__date-output form-item__date-output--day form-item--select">
+                                
+                                <option @(Model.Feature==true?" selected":"")
+                                    value="true">
+                                      On
+                                </option> 
+                                <option @(Model.Feature==false?" selected":"")
+                                    value="false">
+                                      Off
+                                </option>
+                              </select>
+                               <button class=" form-item  form-item__phone-output form-item__phone-output--btn" style="background: none"></button>
+                           </div>
+                     </div>
+                     
+                    
+                     <div class="form-submit">
+                        <div class="auth-form__control form-submit-control">
+                            <button class="btn__small btn__small--primary form-submit-btn" type="submit"">Lưu</button>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="main-profile-form avartar-container col-4">
+                   
+                    <h1>Product images</h1>
+                    
+                    <canvas class="product-image" id= "canv1" >
+                    </canvas>
+                        <img id="avatar" class="product-image" src="@Model.Thumbnail">
+
+                    <p>
+                   
+                    <input type="file" multiple="false" name="myfile" accept="image/*" id=finput onchange="upload()">
+                    </p>
+                  </div>
+
+               </div>
+   </form>
+            </div>
+         </div>
+          <footer class="footer">
+           <img src="~/asserts/img/footer-profile.jpg" alt="footer"/>
+        </footer>
+        <<script src="~/asserts/js/ProductDetail.js"></script>  

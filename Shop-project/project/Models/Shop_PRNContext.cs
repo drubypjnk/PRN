@@ -20,9 +20,13 @@ namespace project.Models
 
         public virtual DbSet<Account> Accounts { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Comment> Comments { get; set; }
+        public virtual DbSet<Note> Notes { get; set; }
+        public virtual DbSet<Notify> Notifies { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -40,7 +44,7 @@ namespace project.Models
             modelBuilder.Entity<Account>(entity =>
             {
                 entity.HasKey(e => e.Username)
-                    .HasName("PK__Account__F3DBC573F2953E8F");
+                    .HasName("PK__Account__F3DBC5733713A4EC");
 
                 entity.ToTable("Account");
 
@@ -50,17 +54,14 @@ namespace project.Models
                     .HasColumnName("username");
 
                 entity.Property(e => e.Address)
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
+                    .HasMaxLength(255)
                     .HasColumnName("address");
 
                 entity.Property(e => e.Avartar)
                     .HasColumnType("text")
                     .HasColumnName("avartar");
 
-                entity.Property(e => e.City)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                entity.Property(e => e.City).HasMaxLength(255);
 
                 entity.Property(e => e.Dob)
                     .HasColumnType("datetime")
@@ -86,6 +87,13 @@ namespace project.Models
                     .HasMaxLength(50)
                     .IsUnicode(false)
                     .HasColumnName("password");
+
+                entity.Property(e => e.RoleId).HasColumnName("role_id");
+
+                entity.HasOne(d => d.Role)
+                    .WithMany(p => p.Accounts)
+                    .HasForeignKey(d => d.RoleId)
+                    .HasConstraintName("FK__Account__role_id__6FE99F9F");
             });
 
             modelBuilder.Entity<Category>(entity =>
@@ -101,6 +109,103 @@ namespace project.Models
                 entity.Property(e => e.Images)
                     .HasColumnType("ntext")
                     .HasColumnName("images");
+            });
+
+            modelBuilder.Entity<Comment>(entity =>
+            {
+                entity.ToTable("comment");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Content)
+                    .HasMaxLength(500)
+                    .HasColumnName("content");
+
+                entity.Property(e => e.Date)
+                    .HasColumnType("datetime")
+                    .HasColumnName("date");
+
+                entity.Property(e => e.ProductId).HasColumnName("product_id");
+
+                entity.Property(e => e.Username)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("username");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.Comments)
+                    .HasForeignKey(d => d.ProductId)
+                    .HasConstraintName("FK__comment__product__05D8E0BE");
+
+                entity.HasOne(d => d.UsernameNavigation)
+                    .WithMany(p => p.Comments)
+                    .HasForeignKey(d => d.Username)
+                    .HasConstraintName("FK__comment__usernam__06CD04F7");
+            });
+
+            modelBuilder.Entity<Note>(entity =>
+            {
+                entity.ToTable("Note");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.Content)
+                    .HasMaxLength(255)
+                    .HasColumnName("content");
+
+                entity.Property(e => e.Date)
+                    .HasColumnType("datetime")
+                    .HasColumnName("date");
+
+                entity.Property(e => e.OrderId).HasColumnName("order_id");
+
+                entity.Property(e => e.Username)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("username");
+
+                entity.HasOne(d => d.Order)
+                    .WithMany(p => p.Notes)
+                    .HasForeignKey(d => d.OrderId)
+                    .HasConstraintName("FK__Note__order_id__02FC7413");
+
+                entity.HasOne(d => d.UsernameNavigation)
+                    .WithMany(p => p.Notes)
+                    .HasForeignKey(d => d.Username)
+                    .HasConstraintName("FK__Note__username__14270015");
+            });
+
+            modelBuilder.Entity<Notify>(entity =>
+            {
+                entity.ToTable("notify");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Backlink)
+                    .HasColumnType("ntext")
+                    .HasColumnName("backlink");
+
+                entity.Property(e => e.Content)
+                    .HasColumnType("ntext")
+                    .HasColumnName("content");
+
+                entity.Property(e => e.Image)
+                    .HasColumnType("ntext")
+                    .HasColumnName("image");
+
+                entity.Property(e => e.Title)
+                    .HasMaxLength(255)
+                    .HasColumnName("title");
+
+                entity.Property(e => e.Username)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("username");
+
+                entity.HasOne(d => d.UsernameNavigation)
+                    .WithMany(p => p.Notifies)
+                    .HasForeignKey(d => d.Username)
+                    .HasConstraintName("FK__notify__username__09A971A2");
             });
 
             modelBuilder.Entity<Order>(entity =>
@@ -165,7 +270,7 @@ namespace project.Models
             modelBuilder.Entity<OrderDetail>(entity =>
             {
                 entity.HasKey(e => new { e.OrderId, e.ProductId })
-                    .HasName("PK__order_de__022945F6A271E0E3");
+                    .HasName("PK__order_de__022945F617086C47");
 
                 entity.ToTable("order_details");
 
@@ -233,6 +338,26 @@ namespace project.Models
                 entity.Property(e => e.UnitInStock).HasColumnName("unit_in_stock");
 
                 entity.Property(e => e.UnitOnOrder).HasColumnName("unit_on_order");
+
+                entity.Property(e => e.UpdateDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("update_date");
+
+                entity.HasOne(d => d.Category)
+                    .WithMany(p => p.Products)
+                    .HasForeignKey(d => d.CategoryId)
+                    .HasConstraintName("FK_Product_category_001");
+            });
+
+            modelBuilder.Entity<Role>(entity =>
+            {
+                entity.ToTable("roles");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(255)
+                    .HasColumnName("name");
             });
 
             OnModelCreatingPartial(modelBuilder);

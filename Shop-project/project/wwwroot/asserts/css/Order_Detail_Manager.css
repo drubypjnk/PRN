@@ -1,0 +1,55 @@
+﻿.transpot-item {
+    margin-right: 160px;
+}
+._3lh_J3 {
+    width: 300px !important;
+
+}
+.status-container {
+    display: flex;
+    position: absolute;
+    top: 17px;
+    align-items: center;
+}
+.u-QNyq{
+    position:relative;
+}
+.status-container select {
+    color: var(--text-color);
+    width: 149px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+}
+.status-thumb {
+    align-items: center;
+    display: flex;
+}
+._2jj5D3 {
+    max-width: 256px !important;
+}
+.chatbox{
+    width:500px !important;
+}
+.chat-stream {
+    height: 100%;
+    box-shadow: rgb(0 0 0 / 5%) 0px 6px 24px 0px, rgb(0 0 0 / 8%) 0px 0px 0px 1px;
+}
+.chat-content {
+    height: 32px !important;
+    width:89%;
+    overflow:scroll;
+}
+.btn-submit {
+    height:32px;
+}
+.container-content-chat{
+    display:flex;
+}
+.time-item{
+    color:var(--primary-color);
+    margin-right:10px;
+    white-space:nowrap;
+}
+.user-item {
+    font-weight: 500;
+}

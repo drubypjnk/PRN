@@ -30,7 +30,7 @@
     
     <!-- Block Element Modifier -->
     <div class="app">
-             <header class="header ">
+       <header class="header ">
             <div class="grid">
                 <nav class="header__navbar">
                     <ul class="header__navbar-list">
@@ -138,39 +138,46 @@
                                 Trợ giúp</a>
 
                         </li>
-                    @*    <li class="header__navbar-item  header__navbar-item--strong register-item">
-                            <h3 href="" onclick="registerform()"
-                                class="header__navbar-item-link header__navbar-item--separate header__navbar-item--strong">
-                                Đăng
-                                kí</h3>
-                        </li>
-                        <li class="header__navbar-item header__navbar-item--strong login-item" onclick="loginform()">
-                            <a href="" class="header__navbar-item-link header__navbar-item--strong">Đăng nhập</a>
-                        </li>*@
+
+                         
+                            @if(ViewBag.account==null){
+                            <li class="header__navbar-item  header__navbar-item--strong register-item">
+                                <h3 href="" onclick="registerform()"
+                                        class="header__navbar-item-link header__navbar-item--separate header__navbar-item--strong">
+                                    đăng
+                                    kí</h3>
+                            </li>
+                            <li class="header__navbar-item header__navbar-item--strong login-item" onclick="loginform()">
+                                <a href="/home/login" class="header__navbar-item-link header__navbar-item--strong">đăng nhập</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <!--LOGED-->
+                             <li class="header__navbar-item header__navbar-user">
+                                <img src="
+                                https://w7.pngwing.com/pngs/340/956/png-transparent-profile-user-icon-computer-icons-user-profile-head-ico-miscellaneous-black-desktop-wallpaper-thumbnail.png"
+                                    alt="" class="header__navbar-user-img">
+                                <span class="header__navbar-user-name">@ViewBag.account.Name</span>
+                                <ul class="header__navbar-user-menu">
+                                    <li class="header__navbar-user-item">
+                                        <a href="">Tài khoản của tôi</a>
+                                    </li>
+                                    <li class="header__navbar-user-item">
+                                        <a href="">Địa chỉ của tôi</a>
+                                    </li>
+                                    <li class="header__navbar-user-item">
+                                        <a href="">Đơn mua </a>
+                                    </li>
+
+                                    <li class="header__navbar-user-item">
+                                        <a href="">Đăng xuất</a>
+                                    </li>
+                                </ul>
+                            </li> 
+                        }
 
 
-                        <!--LOGED-->
-                         <li class="header__navbar-item header__navbar-user">
-                            <img src="
-                            https://w7.pngwing.com/pngs/340/956/png-transparent-profile-user-icon-computer-icons-user-profile-head-ico-miscellaneous-black-desktop-wallpaper-thumbnail.png"
-                                alt="" class="header__navbar-user-img">
-                            <span class="header__navbar-user-name">Dũng Bùi</span>
-                            <ul class="header__navbar-user-menu">
-                                <li class="header__navbar-user-item">
-                                    <a href="">Tài khoản của tôi</a>
-                                </li>
-                                <li class="header__navbar-user-item">
-                                    <a href="">Địa chỉ của tôi</a>
-                                </li>
-                                <li class="header__navbar-user-item">
-                                    <a href="">Đơn mua </a>
-                                </li>
-
-                                <li class="header__navbar-user-item">
-                                    <a href="">Đăng xuất</a>
-                                </li>
-                            </ul>
-                        </li> 
                     </ul>
                 </nav>
                 <!-- header with search  -->
@@ -186,7 +193,7 @@
                     </div>
                     <div class="header__search">
                         <div class="header__search-input-wrap">
-                            <input type="text" class="header__search-input" placeholder="Nhập để tìm kiếm sản phẩm">
+                            <input type="search" class="header__search-input" placeholder="Nhập để tìm kiếm sản phẩm">
                             <!-- Search history -->
                             <div class="header__search-history">
                                 <h3 class="header__search-history-heading">Lịch sử tìm kiếm</h3>
@@ -284,17 +291,11 @@
 
                             </div>
                         </div>
-
                     </div>
-
                 </nav>
             </div>
-
         </header>
         <div class="app__container">
-                <c:set var="p" value="${requestScope.pro}"></c:set>
-                <c:set var="c" value="${requestScope.ca}"></c:set>
-                <c:set var="shop" value="${requestScope.shop}"></c:set>
             <div class="grid">
                 
                 <div class="grid__row " style="font-size: 1.4rem;">
@@ -500,10 +501,12 @@
                                                         <div class="flex items-center">
                                                             <div class="flex items-center _1V_Jxg">
                                                                 <div class="_2Csw3W old--price">
-                                                                    @Model.OriginalPrice</div>
+                                                                   @(String.Format("{0:0,00}", Model.OriginalPrice)) đ
+                                                                   </div>
                                                                 <div class="flex items-center">
                                                                     <div class="_2v0Hgx current--price">
-                                                                         @Model.SalePrice</div>
+                                                                    @(String.Format("{0:0,00}", Model.SalePrice)) đ    
+                                                                    </div>
                                                                     <div class="_1kpF5Y item--discount">
                                                                         @Model.discount()%</div>
                                                                 </div>
@@ -627,7 +630,7 @@
                                                                 <div class="flex items-center">
                                                                     <div style="margin-right: 15px;">
                                                                         <div class="_28qt-B shopee-input-quantity">
-                                                                            <button class="_14flVw" id="creament" >
+                                                                            <button class="_14flVw @((Model.UnitInStock<1)?"disabled":"")" id="creament" >
                                                                                 <svg enable-background="new 0 0 10 10"
                                                                                     viewBox="0 0 10 10" x="0" y="0"
                                                                                     class="shopee-svg-icon">
@@ -638,10 +641,12 @@
                                                                                 </svg>
                                                                             </button>
                                                                             <input hidden name="id" value="@Model.ProductId" />
-                                                                            <input class="_14flVw z4c5Da" type="text"
+                                                                            <input class="_14flVw z4c5Da " type="text"
+                                                                                oninput="Checkquantity(1,@Model.UnitInStock)"
                                                                                 role="spinbutton" aria-valuenow="1"
-                                                                                value="1" name="quantity" id="text">
-                                                                            <button class="_14flVw" id="uncreament" >
+                                                                                
+                                                                                value="@((Model.UnitInStock<1)?"0":"1")" name="quantity" id="text">
+                                                                            <button class="_14flVw @((Model.UnitInStock<1)?"disabled":"")" id="uncreament" >
                                                                                 <svg enable-background="new 0 0 10 10"
                                                                                     viewBox="0 0 10 10" x="0" y="0"
                                                                                     class="shopee-svg-icon icon-plus-sign">
@@ -652,29 +657,29 @@
                                                                                 </svg>
                                                                             </button>
                                                                         </div>
-                                                                        <script>
-                                                                            let creament = document.getElementById("creament")
-                                                                             let uncreament = document.getElementById("uncreament")
-                                                                             let text = document.getElementById("text")
-                                                                              let click = document.getElementById("click")
-                                                                                uncreament.addEventListener("click",()=>{
-                                                                               if(text.value<=@Model.UnitInStock){
-                                                                                text.value++;
-                                                                                 creament.className=creament.className.replace(" disabled","");
-                                                                               }else{
-                                                                                   uncreament.className+=' disabled';
-                                                                               }
+                                                                            <script>
+                                                                                let creament = document.getElementById("creament")
+                                                                                 let uncreament = document.getElementById("uncreament")
+                                                                                 let text = document.getElementById("text")
+                                                                                  let click = document.getElementById("click")
+                                                                                    uncreament.addEventListener("click",()=>{
+                                                                                   if(text.value<@Model.UnitInStock){
+                                                                                    text.value++;
+                                                                                     creament.className=creament.className.replace(" disabled","");
+                                                                                   }else{
+                                                                                       uncreament.className+=' disabled';
+                                                                                   }
 
+                                                                                                                     })
+                                                                                        creament.addEventListener("click",()=>{
+                                                                                                         if(text.value >1 ){
+                                                                                                   text.value--;
+                                                                                                   uncreament.className=uncreament.className.replace(" disabled","");
+                                                                                                                         }else{
+                                                                                                                             creament.className+=' disabled';
+                                                                                                                         }
                                                                                                                  })
-                                                                                    creament.addEventListener("click",()=>{
-                                                                                                     if(text.value >1 ){
-                                                                                               text.value--;
-                                                                                               uncreament.className=uncreament.className.replace(" disabled","");
-                                                                                                                     }else{
-                                                                                                                         creament.className+=' disabled';
-                                                                                                                     }
-                                                                                                             })
-                                                                        </script>
+                                                                            </script>
                                                                     </div>
                                                                     <div>
                                                                         @Model.UnitInStock sản phẩm có sẵn</div>
@@ -687,47 +692,23 @@
                                             <div style="margin-top: 15px;">
                                                 <div class="j1JSoD">
                                                     <div class="QcT1pP">
-                                                    @*    <button type="button"
-                                                            class="btn btn-tinted btn--l rvHxix _3t_iHy btn--add"
-                                                            aria-disabled="false"">
-                                                            <svg enable-background="new 0 0 15 15" viewBox="0 0 15 15"
-                                                                x="0" y="0"
-                                                                class="shopee-svg-icon _32Ho0Q icon-add-to-cart">
-                                                                <g>
-                                                                    <g>
-                                                                        <polyline fill="none"
-                                                                            points=".5 .5 2.7 .5 5.2 11 12.4 11 14.5 3.5 3.7 3.5"
-                                                                            stroke-linecap="round"
-                                                                            stroke-linejoin="round"
-                                                                            stroke-miterlimit="10">
+                                                        @if(@Model.UnitInStock<1){
+                                                                <button type="button"
+                                                                    class="btn btn-solid-primary btn--l rvHxix disabled"
+                                                                    aria-disabled="true">
+                                                                    Out of stock
+                                                                </button>
+                                                            }
+                                                            else
+                                                            {
+                                                                   <button type="button"
+                                                                    class="btn btn-solid-primary btn--l rvHxix"
+                                                                    aria-disabled="false" onclick="Addtocart()">
+                                                                    Thêm vào giỏ hàng
+                                                                </button>
+                                                            }
 
-                                                                        </polyline>
-                                                                        <circle cx="6" cy="13.5" r="1" stroke="none">
-
-                                                                        </circle>
-                                                                        <circle cx="11.5" cy="13.5" r="1" stroke="none">
-
-                                                                        </circle>
-                                                                    </g>
-                                                                    <line fill="none" stroke-linecap="round"
-                                                                        stroke-miterlimit="10" x1="7.5" x2="10.5" y1="7"
-                                                                        y2="7">
-
-                                                                    </line>
-                                                                    <line fill="none" stroke-linecap="round"
-                                                                        stroke-miterlimit="10" x1="9" x2="9" y1="8.5"
-                                                                        y2="5.5">
-
-                                                                    </line>
-                                                                </g>
-                                                            </svg>
-                                                            <span>
-                                                                thêm vào giỏ hàng</span>
-                                                        </button>*@
-                                                        <button type="button"
-                                                            class="btn btn-solid-primary btn--l rvHxix"
-                                                            aria-disabled="false" onclick="Addtocart()">
-                                                            Thêm vào giỏ hàng</button>
+                                                                
 
 
                                                     </div>

@@ -36,7 +36,5 @@ namespace project.Models
         public OrderDetail()
         {
         }
-
-      
     }
 }

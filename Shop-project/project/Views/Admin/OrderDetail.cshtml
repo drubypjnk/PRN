@@ -1,0 +1,274 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+     Layout = "_layout_admin";
+    <link rel="stylesheet" href="~/asserts/css/profile.css">
+    <link rel="stylesheet" href="~/asserts/css/product.css">
+    <link rel="stylesheet" href="~/asserts/css/order__detail.css">
+    <link rel="stylesheet" href="~/asserts/css/order.css">
+    <link rel="stylesheet" href="~/asserts/css/profile.css">
+    <link rel="stylesheet" href="~/asserts/css/buy.css">
+     <link rel="stylesheet" href="~/asserts/css/Order_Detail_Manager.css">
+    @using project.Models
+    @model Order
+}
+
+
+    <!-- Block Element Modifier -->
+        <div class="app__container">
+            <div class="grid">
+                <div class="grid__row">
+                    <!-- /* Home sort+filter  */ -->
+                    <div class="col-12 " style="margin-bottom:20px">
+                        <div class="orderdetail--navbar">
+                            <div class="orderdetail--navbar orderdetail--navbar--content">
+                                <div class="orderdetail--navbar--content orderdetail--navbar--item" onclick="window.location.href='ordermanager'" style="cursor: pointer">
+                                    <svg enable-background="new 0 0 11 11" viewBox="0 0 11 11" x="0" y="0"
+                                        class="shopee-svg-icon icon-arrow-left">
+                                        <g>
+                                            <path
+                                                d="m8.5 11c-.1 0-.2 0-.3-.1l-6-5c-.1-.1-.2-.3-.2-.4s.1-.3.2-.4l6-5c .2-.2.5-.1.7.1s.1.5-.1.7l-5.5 4.6 5.5 4.6c.2.2.2.5.1.7-.1.1-.3.2-.4.2z">
+                                            </path>
+                                        </g>
+                                    </svg>
+                                    <span >TRỞ LẠI</span>
+                                </div>
+                                <div class="status-thumb">
+                                    <span>ID ĐƠN HÀNG:@Model.OrderId</span><span
+                                        class="orderdetail--navbar--item orderdetail--navbar--item__ID">|</span>
+                                    <span class="orderdetail--navbar--item orderdetail--navbar--item__Status">
+                                @if (Model.Status == 1)
+                                {
+                                    <p> Đơn hàng đang được xác nhận </p>
+                                                    }
+                                else if (Model.Status==2)
+                                {
+                                    <p> Đơn hàng đang chờ vận chuyển </p>
+                                }else if(Model.Status==3){
+                                    <p>Đơn hàng đang được giao</p>
+                                }
+                                else if(Model.Status==4){
+                                    <p>Hoàn thành Đơn hàng</p>
+                                                    }
+                                else
+                                {
+                                    <p>Đơn hàng bị hủy</p>
+                                }
+                            </span>
+                                     </div>
+                            </div>
+                        </div>
+                        <!--Status-->
+                     
+          
+               
+                <form action="/order/update" method="post">
+                    <input hidden id="order_id" name="order_id" value="@Model.OrderId"/>
+                        <div class="order__detail-information">
+                            <div class="j7z7l_">
+                                <div class="_1AsWWl"></div>
+                            </div>
+                            <div class="u-QNyq">
+                                <div class="_2WaK8H">
+                                    <div class="fE5sHM">Địa chỉ nhận hàng</div>
+                                    <div class="_4KkgUa transpot-item">
+                                        <div>
+                                            <div>Thông tin vận chuyển</div>
+                                        </div>
+                                    </div>
+                                    <div class="_4KkgUa transpot-item">
+                                        <div class="status-container">
+                                            <div >Status :</div>
+                                            <div>  
+                                            <select id="status" onchange="ChangeStatus()">
+                                                <option value="0">Hủy Đơn hàng</option>    
+                                                <option value="1">Chờ xác nhận</option>    
+                                                <option value="2">Xác nhận đơn hàng</option>    
+                                                <option value="3">Vận chuyển đơn hàng</option>    
+                                                <option value="4">Hoàn thành đơn hàng</option>    
+                                            </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            
+                            <div class="_2wWOHm">
+                                    <div class="_2jj5D3">
+                                        <div class="_2_z46i">
+                                            Tên: @Model.ShipName
+                                        </div>
+                                        <div class="_1J2b7X">
+                                            Số điện thoại:@Model.ShipMobile"<br>
+                                            Thành phố:@Model.ShipCity
+                                            <br>Địa chỉ: @Model.ShipAddress
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="_3lh_J3">
+                                        <div>
+                                            <div class="_38-lLD">
+                                                    <p> Đơn vị vận chuyển:viettelpost</p>
+                                                    <p id="sname">Tên shipper:Bùi Xuân Huấn</p>
+                                                    <p id="sphone">Số điện thoại:07888899999</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="_3lh_J3 chatbox">
+                                        <div class="chat-stream"> 
+                                           <ul id="content">
+                                            @foreach( Note note in ViewBag.notes)
+                                            {
+                                                
+                                                <li class="container-content-chat">
+                                                     <div class="time-item col-3">
+                                                         [@note.Date]
+                                                     </div>
+                                                      <div class="user-item col-1">
+                                                         @note.Username
+                                                     </div>
+                                                     :
+                                                     <div class="title-chat-item col-9">
+                                                        @note.Content
+                                                     </div>
+                                                   </li>
+                                            }
+                                              
+                                           </ul>
+                                        </div>
+                                        <input  id="note" class="chat-content" type="text" placeholder="note" name="note"/>
+                                        <button  @(Model.Status==0?" disabled":"") class="btn-submit" type="button" onclick="SubmitNote()">Enter</button>
+                                    </div>
+                                </div>
+                            
+                            </div>
+                        </div>
+                         
+                                            
+                                            <ul class="home-product home-product-list">
+                                                       
+                                                <li class="home-product-item">
+                                                        <div class="grid__column-10 main-product" style="width:100%">
+                                                            <!--Heading-->
+                                                      <div class="order-item oder-item-heading">
+                                                            <h1>Thông tin đơn hàng</h1>
+                                                      </div>
+                                                              <!--Body-->
+                                                     @foreach (OrderDetail od in Model.OrderDetails)
+                                                    {
+                                                      <div class="order-item-body">
+                                                          <div class="order-item order-item__product">
+                                                              <div class="order-item order-item__product-image"
+                                                                  style="background-image: url(@od.Product.Thumbnail);">
+                                                              </div>
+                                                              <div class="order-item order-item__product-content">
+                                                                  <div class="name-c">
+                                                                      <div class="order-item order-item__product-content order-item__product-content--name">
+                                                                          <span class="_30COVM"> @od.Product.ProductName
+                                                                          </span>
+                                                                      </div>
+                                                                  </div>
+                                                                  <div class="order-item order-item__product-content order-item__product-content--attributes">
+                                                                      <div class="order-item__product-content--attributes order-item__product-content--type">
+                                                                              <div class="order-product-item order-product-type">@od.Product.Brand</div>
+                                                                              <div class="order-product-item order-product-price">
+                                                                                  <div class="order-product-item__oldprice" >@(String.Format("{0:0,00}", od.Product.OriginalPrice)) đ</div>
+                                                                                  <div class="order-item__product-content--price">@(String.Format("{0:0,00}", od.Price)) đ</div>
+                                                                              </div>
+                                                                      </div>
+                                                                      <div class="order-item__product-content--attributes order-item__product-content--unit">x @od.Quantity</div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                    }
+                                                        
+                                                              <!--Footer-->
+                                                      <div class="order-item order-item-bill ">
+                                                          <div class="order-item order-item-bill order-item--total">
+                                                              <div class="order-item--total order-item--total__content">
+                                                                  <span class="order-item--total__content-icon">
+                                                                      <div class="_-8oSuS">
+                                                                          <svg width="16" height="17" viewBox="0 0 253 263" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                              <path 
+                                                                              fill-rule="evenodd" clip-rule="evenodd" d="M126.5 0.389801C126.5 0.389801 82.61 27.8998 5.75 26.8598C5.08763 26.8507 4.43006 26.9733 3.81548 27.2205C3.20091 27.4677 2.64159 27.8346 2.17 28.2998C1.69998 28.7657 1.32713 29.3203 1.07307 29.9314C0.819019 30.5425 0.688805 31.198 0.689995 31.8598V106.97C0.687073 131.07 6.77532 154.78 18.3892 175.898C30.003 197.015 46.7657 214.855 67.12 227.76L118.47 260.28C120.872 261.802 123.657 262.61 126.5 262.61C129.343 262.61 132.128 261.802 134.53 260.28L185.88 227.73C206.234 214.825 222.997 196.985 234.611 175.868C246.225 154.75 252.313 131.04 252.31 106.94V31.8598C252.31 31.1973 252.178 30.5414 251.922 29.9303C251.667 29.3191 251.292 28.7649 250.82 28.2998C250.35 27.8358 249.792 27.4696 249.179 27.2225C248.566 26.9753 247.911 26.852 247.25 26.8598C170.39 27.8998 126.5 0.389801 126.5 0.389801Z" fill="#ee4d2d"></path>
+                                                                              <path fill-rule="evenodd" clip-rule="evenodd" d="M207.7 149.66L119.61 107.03C116.386 105.472 113.914 102.697 112.736 99.3154C111.558 95.9342 111.772 92.2235 113.33 88.9998C114.888 85.7761 117.663 83.3034 121.044 82.1257C124.426 80.948 128.136 81.1617 131.36 82.7198L215.43 123.38C215.7 120.38 215.85 117.38 215.85 114.31V61.0298C215.848 60.5592 215.753 60.0936 215.57 59.6598C215.393 59.2232 215.128 58.8281 214.79 58.4998C214.457 58.1705 214.063 57.909 213.63 57.7298C213.194 57.5576 212.729 57.4727 212.26 57.4798C157.69 58.2298 126.5 38.6798 126.5 38.6798C126.5 38.6798 95.31 58.2298 40.71 57.4798C40.2401 57.4732 39.7735 57.5602 39.3376 57.7357C38.9017 57.9113 38.5051 58.1719 38.1709 58.5023C37.8367 58.8328 37.5717 59.2264 37.3913 59.6604C37.2108 60.0943 37.1186 60.5599 37.12 61.0298V108.03L118.84 147.57C121.591 148.902 123.808 151.128 125.129 153.884C126.45 156.64 126.797 159.762 126.113 162.741C125.429 165.72 123.755 168.378 121.363 170.282C118.972 172.185 116.006 173.221 112.95 173.22C110.919 173.221 108.915 172.76 107.09 171.87L40.24 139.48C46.6407 164.573 62.3785 186.277 84.24 200.16L124.49 225.7C125.061 226.053 125.719 226.24 126.39 226.24C127.061 226.24 127.719 226.053 128.29 225.7L168.57 200.16C187.187 188.399 201.464 170.892 209.24 150.29C208.715 150.11 208.2 149.9 207.7 149.66Z" fill="#fff"></path>
+                                                                          </svg>
+                                                                      </div>
+                                                                  </span>
+                                                                  <div class="order-item--total__text">Tổng số tiền:</div>
+                                                                  <div class="order-item--total__price">₫ @(String.Format("{0:0,00}", Model.TotalPrice))  </div>
+                                                              </div>
+                                                          </div>
+                                                       @*   <div class="order-item order-item-bill order-item--atribute">
+                                                              <div class="order-item--atribute order-item--atribute__rating">
+                                                                  <span>Không nhận được đánh giá</span>
+                                                              </div>
+                                                              <div class=" order-item--atribute  order-item--atribute__container">
+                                                                  <div class="order-item--atribute__container order-item--atribute__container--rebuy">
+                                                                      <button class="stardust-button stardust-button--primary _2x5SvJ">Mua lại</button>
+                                                                  </div>
+                                                                  <div class="order-item--atribute__container order-item--atribute__container--contact">
+                                                                      <button class="stardust-button stardust-button--secondary _2x5SvJ">Liên hệ Người bán</button>
+                                                                  </div>
+                                                              </div>
+                                                          </div>*@
+                                                      </div>
+                                                    </li>
+                                                   
+                                                    
+                                                </ul>
+                                            
+                                      <!--Bill-->
+                                      <div class="_1l8TCL orderdetail-item-bill">
+                                          <div class="_1FDuJg">
+                                              <div class="_1bq31i"><span>Tổng tiền hàng</span></div>
+                                              <div class="_2aXD4G">
+                                                  <div>₫@Model.TotalPrice
+                                                  </div>
+                                                </div>
+                                            </div>
+                                            <div class="_1FDuJg">
+                                                <div class="_1bq31i"><span>Phí vận chuyển</span></div>
+                                                <div class="_2aXD4G">
+                                                    <div>₫ 0</div>
+                                                    <input type="text" name="freight" value="0" readonly style="display: none"/>
+                                                </div>
+                                            </div>
+                                                <div class="_1FDuJg">
+                                                   
+                                                   
+                                                    </div>
+                                                   
+                                                    <div class="_1FDuJg _3WktZ1">
+                                                        <div class="_1bq31i _3zO_LL">
+                                                            <span>Tổng số tiền</span>
+                                                        </div>
+                                                        <div class="_2aXD4G">
+                                                            <div class="_1gMI9H">₫ @(String.Format("{0:0,00}", Model.TotalPrice))
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                </li>
+                               </ul>
+                        @if (Model.Status == 1)
+                        {
+                        <button class=" stardust-button stardust-button--primary _2x5SvJ form-submit-btn" type="submit" >Update</button>
+                        }
+                            </div>
+                        </div>
+                   </form>
+                </div>
+            </div>
+    </>
+    <footer class="footer">
+        <div class="footer-main">
+            <img src="~/asserts/img/footer-profile.jpg" alt="Qr code" />
+        </div>
+    </footer>
+
+    <script src="~/asserts/js/order.js"></script>
+   

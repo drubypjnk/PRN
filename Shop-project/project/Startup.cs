@@ -31,7 +31,7 @@ namespace project
 
             app.UseSession(); //using session
             app.UseRouting();
-            app.UseStaticFiles();
+            app.UseStaticFiles();//map voi www
             app.UseEndpoints(endpoints =>
             {
                 //endpoints.MapGet("/", async context =>

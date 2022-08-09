@@ -1,0 +1,17 @@
+﻿.err-pass {
+    position: absolute;
+    right: -160px;
+    bottom: -5px;
+    color:red;
+    font-weight:400;
+    display:none;
+}
+.err-re-pass {
+    right: -228px;
+}
+.form-item{
+    position:relative;
+}
+button:disabled {
+    background: gray !important;
+}

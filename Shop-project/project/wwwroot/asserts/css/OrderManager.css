@@ -1,0 +1,40 @@
+﻿/* order-item footer */
+.order-item--total {
+    padding: 24px 24px 12px;
+    background: #fffefb;
+}
+
+.order-item--total__content {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.order-item--total__content-icon {
+    cursor: pointer;
+}
+
+div {
+    display: block;
+}
+
+.order-item--total__text {
+    margin: 0 10px 0 0;
+    font-size: 14px;
+    line-height: 20px;
+    color: rgba(0,0,0,.8);
+}
+
+.order-item--total__price {
+    color: #ee4d2d;
+    font-size: 24px;
+    line-height: 30px;
+}
+
+.order-item--total {
+    padding: 24px 24px 12px;
+    background: #fffefb;
+}
+.order-id {
+    margin-right: 39px;
+}

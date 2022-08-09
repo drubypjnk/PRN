@@ -1,0 +1,237 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "_layout_admin";
+    <link rel="stylesheet" href="~/asserts/css/ProductManager.css">
+    <link rel="stylesheet" href="~/asserts/css/cart.css">
+    @using project.Models
+    @model List<Product>
+}
+  <div class="app__container">
+            <div class="grid">
+                <div class="grid__row">
+                    <div class="grid__column-2">
+                        <div class="category">
+                            <h3 class="category__heading">
+                                <i class="category__heading-icon fas fa-list"></i> Danh mục
+                            </h3>
+                            <ul class="category-list">
+                               
+                                <li class="category-item category-item--active" >
+                                    <a href="/admin/productmanager" class="category-item__link">Quản lí sản phẩm</a>
+                                </li>
+                                <li class="category-item ">
+                                    <a href="/admin/ordermanager"  class="category-item__link">Quản lí đơn hàng</a>
+                                </li>
+                                <li class="category-item ">
+                                    <a href="analysis"  class="category-item__link">Thống kê</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /* Home sort+filter  */ -->
+                    <div class="grid__column-10">
+                        <div class="home-filter">
+                            <span class="home-filter__label">Sắp xếp theo</span>
+                            <button class="home-filter-btn btn btn--primary">Tất cả</button>
+                            <button class="home-filter-btn btn ">Mới nhất</button>
+                            <button class="home-filter-btn btn">Bán chạy</button>
+                            <div class="select-input">
+                                <span class="select-input__label">Giá</span>
+                                <i class='select-input__icon fa-solid fa-chevron-down'></i>
+                                <div class="select-input-option">
+                                    <ul class="select-input___list">
+                                        <li class="select-input__item">
+                                            <a href="" class="select-input__link">Giá thấp đến cao</a>
+                                            <a href="" class="select-input__link">Giá cao đến thấp</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="home-filter__page">
+                                <span class="home-filter__page-num">
+                                    <span class="home-filter__page-num-curent">
+                                        1
+                                    </span> /14
+                                </span>
+                                <div class="home-filter__page-control">
+                                    <i
+                                        class='home-filter__page-control--icon home-filter__page-control--icon--active fa-solid fa-chevron-left'></i>
+                                    <i class='home-filter__page-control--icon  fa-solid fa-chevron-right'></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="home-product">
+                            <div class="attribute">
+                                <ul class="shop__item--list">
+                                    <li class="shop__item--list--element">
+                                        <div class="_1glehh shop__item--product">
+                                            <div class="_1BehlF">
+                                                <div class="_-0yJ2-">
+
+                                                    <div class="_1Z2fe1">
+                                                        <div class="_3mceb9">
+
+                                                            <div class="_1WfuBi">
+                                                                <a
+                                                                    style="color: var(--text-color); font-weight:400; font-size:1.5rem;">
+                                                                    Tên sản phẩm</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="_34KJXV" style="font-size:1.4rem">
+                                                        Số lượng
+                                                    </div>
+                                                    <div
+                                                        class="order-item__product-content--attributes order-item__product-content--unit">
+                                                    </div>
+                                                    <div class="_1C6zuo">
+                                                        <div>
+                                                            <span class="_1E5-FE" style="font-size:1.4rem">
+                                                                Giá</span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="_2S6DJl">
+                                                        <span style="font-size:1.4rem; color:var(--text-color)">
+                                                        </span>
+                                                    </div>
+                                                    <div class="_1-z5aG _1AeN8q" style="font-size:1.3rem">
+                                                        <button class="Lur7Ey">
+                                                            Thao tác</button>
+                                                        <!-- <div class="_2JDie8">
+                                                            <button class="shopee-button-no-outline _2w1LKL">
+                                                                <span class="_1pXUYq">
+                                                                    Tìm sản phẩm tương tự</span>
+                                                                <svg enable-background="new 0 0 15 15" viewBox="0 0 15 15"
+                                                                    x="0" y="0"
+                                                                    class="shopee-svg-icon lVwK_l icon-down-arrow-filled">
+                                                                    <path
+                                                                        d="m6.5 12.9-6-7.9s-1.4-1.5.5-1.5h13s1.8 0 .6 1.5l-6 7.9c-.1 0-.9 1.3-2.1 0z">
+                                                                    </path>
+                                                                </svg>
+                                                            </button>
+                                                        </div> -->
+                                                    </div>
+                                                    <button style="right: 97px" data-v-9c6a8cb8="" type="button"
+                                                    onclick="window.location.href='/admin/addproduct'" 
+                                                        class="add-action shopee-button shopee-button--primary shopee-button--large">
+                                                        <i class="shopee-icon">
+                                                            <svg viewBox="0 0 32 32">
+                                                                <path
+                                                                    d="M17.5 2.5h-3v12h-12v3h12v12h3v-12h12v-3h-12v-12z">
+
+                                                                </path>
+                                                            </svg>
+                                                        </i>
+                                                        <span>
+                                                            Thêm 1 sản phẩm mới
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="grid__row list-item">
+                                <!--Item-->
+                                <ul class="list__shop">
+                            @foreach( Product p in @Model)
+                            {
+                            <li class="st__shop list___shop--item">
+                                        <div class="_1K9yK1 shop__item">
+                                            <!--Shop name-->
+                                            <!--shop__item--product-->
+                                            <ul class="shop__item--list">
+                                                <li class="shop__item--list--element">
+                                                    <div class="_1glehh shop__item--product">
+                                                        <div class="_1BehlF">
+                                                            <div class="_-0yJ2-">
+
+                                                                <div class="_1Z2fe1">
+                                                                    <div class="_3mceb9">
+                                                                        <a title="[Mã LIFEXANH03 giảm 10% đơn 500K] LED DÂY RGB 7 MÀU 5050 5M/300LED/CUỘN"
+                                                                            href="">
+                                                                            <div class="_25vezo"
+                                                                                style="background-image: url(@p.Thumbnail);">
+                                                                            </div>
+                                                                        </a>
+                                                                        <div class="_1WfuBi">
+                                                                            <a style="color: var(--text-color); font-weight:400; font-size:1.5rem;"
+                                                                                class="_3t5Sij"
+                                                                                title="[Mã LIFEXANH03 giảm 10% đơn 500K] LED DÂY RGB 7 MÀU 5050 5M/300LED/CUỘN"
+                                                                               >
+                                                                                @p.ProductName;
+                                                                            </a>
+                                                                            <div class="_21GC7u"
+                                                                                style="background-image: url(&quot;https://cf.shopee.vn/file/05d35f827db98589222baada5355b8df&quot;);">
+                                                                            </div>
+                                                                            <div class="fRkQR_">
+                                                                                <span>
+
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="_34KJXV" style="font-size:1.4rem;margin-left: -34px;">
+                                                                     @p.UnitInStock
+                                                                </div>
+                                                                <div
+                                                                    class="order-item__product-content--attributes order-item__product-content--unit">
+                                                                </div>
+                                                                <div class=" _2Csw3W ">
+                                                                    <span style="font-size:1.4rem">
+                                                                    @(String.Format("{0:0,00}", p.OriginalPrice)) đ   
+                                                                    </span>
+                                                                </div>
+                                                                <div class="_1C6zuo _2S6DJl sale-price-it">
+                                                                    <div>
+                                                                        @(String.Format("{0:0,00}", p.SalePrice)) đ
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <div class="_1-z5aG _1AeN8q" style="font-size:1.3rem;" >
+                                                                <div class="_1-z5aG _1AeN8q" style="font-size:1.3rem;" >
+                                                                    
+                                                                    <form action="/admin/ProductDetail" method="post">
+                                                                       <input hidden name="id" value="@p.ProductId">
+                                                                        <button class="  btn btn--btn--size-s btn--primary " style="min-width:62px;margin-bottom: 3px; ">
+                                                                            Sửa
+                                                                        </button>
+                                                                    </form>
+                                                                    
+                                                                
+                                                                </div>
+                                                                <div class="_1-z5aG _1AeN8q" style="font-size:1.3rem; background:">
+                                                                   <form action="/admin/HideProduct" method="post">
+                                                                       <input hidden name="id" value="@p.ProductId">
+                                                                        <button class=" btn btn--btn--size-s "style="min-width:62px; ">
+                                                                            Ẩn
+                                                                        </button>
+                                                                   </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                               }
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+           <img src="~/asserts/img/footer-profile.jpg" alt="footer"/>
+        </footer>

@@ -262,7 +262,7 @@ svg:not(:root) {
 ._2WaK8H {
     padding: 0 0 12px;
     display: flex;
-    justify-content: space-between;
+    /*justify-content: space-between;*/
     align-items: flex-end;
 }
 .fE5sHM {
@@ -270,6 +270,7 @@ svg:not(:root) {
     color: rgba(0,0,0,.8);
     font-size: 20px;
     line-height: 24px;
+    margin-right: 119px;
 }
 ._2wWOHm {
     display: flex;
@@ -634,6 +635,12 @@ svg:not(:root) {
     align-items: center;
     text-align: end;
     border-bottom: 1px dotted rgba(0,0,0,.09);
+}
+._4KkgUa {
+    text-transform: capitalize;
+    color: rgba(0, 0, 0, 0.8);
+    font-size: 20px;
+    line-height: 24px;
 }
 
 ._14Pkgq {

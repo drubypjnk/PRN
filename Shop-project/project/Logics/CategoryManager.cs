@@ -11,6 +11,13 @@ namespace project.Logics
         public CategoryManager()
         {
         }
+        public List<Category> getCategories()
+        {
+            using (var context =new Shop_PRNContext())
+            {
+                return context.Categories.ToList();
+            }
+        }
         public List<Category> GetCategory(int id)
         {
             using (var context = new Shop_PRNContext())

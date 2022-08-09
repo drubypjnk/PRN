@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="DocumentFormat.OpenXml" Version="2.17.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.17">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -1532,6 +1533,10 @@
     <None Include="wwwroot\asserts\img\profile-footer.png" />
     <None Include="wwwroot\asserts\img\Q1_practice.java" />
     <None Include="wwwroot\asserts\img\Qr_code.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\product-image\" />
   </ItemGroup>
 
 </Project>

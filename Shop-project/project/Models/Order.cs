@@ -9,6 +9,7 @@ namespace project.Models
     {
         public Order()
         {
+            Notes = new HashSet<Note>();
             OrderDetails = new HashSet<OrderDetail>();
         }
 
@@ -27,6 +28,7 @@ namespace project.Models
         public string ShipCity { get; set; }
 
         public virtual Account UsernameNavigation { get; set; }
+        public virtual ICollection<Note> Notes { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }

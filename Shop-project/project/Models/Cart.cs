@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using project.Logics;
+using System.Collections.Generic;
 
 namespace project.Models
 {
@@ -46,6 +47,16 @@ namespace project.Models
                 totalMoney += i.quantity * i.price;
             }
             return totalMoney;
+        }
+        public void refresh()
+        {
+            ProductManager productManager = new ProductManager();
+           
+            foreach (Item i in items)
+            {
+                Product p=productManager.GetProductByID(i.Product.ProductId);
+                i.Product = p;
+            }
         }
 
     public void RemoveItem(int id)

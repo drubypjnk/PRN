@@ -15,12 +15,30 @@ namespace project.Controllers
         }
         public IActionResult Detail()
         {
+            Account account = GetAccountSession();
             Cart cart = GetCart();
+            if (account == null) //if not login
+            {
+                ViewBag.mess = "access denied!";
+                RedirectToAction("list", "home");
+            }
+            //check cart 
+            bool check = CheckCart(cart);
+            if (check == false)
+            {
+                ViewBag.err = "Your cart have change many item!";
+            }
+            if (checkEmtptyElement(cart)==false)
+            {
+                ViewBag.err1 ="Out of stock!";
+            }
             //set session
             string json = JsonConvert.SerializeObject(cart);
             HttpContext.Session.SetString("cart", json);
+            ViewBag.account=account;
             return View(cart);
         }  
+      
         //public string SetSession(int id)
         //{
         //    ProductManager p = new ProductManager();
@@ -63,9 +81,31 @@ namespace project.Controllers
             {
                 cart = JsonConvert.DeserializeObject<Cart>(json);
             }
+            //refresh lại cart
+            cart.refresh();
             return cart;
         }
-
+        public bool checkEmtptyElement(Cart cart)
+        {
+            foreach (Item i in cart.items)
+            {
+                if(i.quantity==0)return false;
+            }
+                return true;
+        }
+        public bool CheckCart(Cart cart)
+        {
+            bool check = true;
+            foreach (Item i in cart.items)
+            {
+                if (i.quantity > i.Product.UnitInStock)
+                {
+                    i.quantity = (int)i.Product.UnitInStock;
+                    check = false;
+                }
+            }
+            return check;
+        }
         public IActionResult AddtoCart(int id,int quantity)
         {
            Cart cart= GetCart();
@@ -86,14 +126,28 @@ namespace project.Controllers
             {
                 cart.addItem(item);
             }
+
             //set session
             string json = JsonConvert.SerializeObject(cart);
             HttpContext.Session.SetString("cart", json);
-            return View("views/Cart/detail.cshtml",cart);
+            //return View("views/Cart/detail.cshtml",cart);
+            return RedirectToAction("Detail");
         }
-        public IActionResult Increase(int id,int quantity)
+        public Account GetAccountSession()
         {
-             quantity = 1;
+            //get account session
+            Account account;
+            string? json = HttpContext.Session.GetString("account");
+            if (json != null)
+            {
+                account = JsonConvert.DeserializeObject<Account>(json);
+            }
+            else { account = null; }
+            return account;
+        }
+        public IActionResult Increase(int id)
+        {
+             int quantity = 1;
             Cart cart = GetCart();
             ProductManager productManager = new ProductManager();
             Product p = productManager.GetProductByID(id);
@@ -115,11 +169,11 @@ namespace project.Controllers
             //set session
             string json = JsonConvert.SerializeObject(cart);
             HttpContext.Session.SetString("cart", json);
-            return View("views/Cart/detail.cshtml", cart);
+            return RedirectToAction("Detail");
         } 
-        public IActionResult Decrease(int id, int quantity)
+        public IActionResult Decrease(int id)
         {
-             quantity = -1;
+             int quantity = -1;
             Cart cart = GetCart();
             ProductManager productManager = new ProductManager();
             Product p = productManager.GetProductByID(id);
@@ -151,7 +205,7 @@ namespace project.Controllers
             //set session
             string json = JsonConvert.SerializeObject(cart);
             HttpContext.Session.SetString("cart", json);
-            return View("views/Cart/detail.cshtml", cart);
+            return RedirectToAction("Detail");
         }
         public IActionResult Delete(int id)
         {
@@ -160,12 +214,17 @@ namespace project.Controllers
             //set session
             string json = JsonConvert.SerializeObject(cart);
             HttpContext.Session.SetString("cart", json);
-            return View("views/Cart/detail.cshtml", cart);
+            return RedirectToAction("Detail");
         }
         public IActionResult Contact()
         {   
-            Account a=new Account("dung","Bùi Anh Dũng,","Đại Học FPT","078332391",new DateTime(2001,01,01),"","drubypjnk@gmail.com","Hải Phòng");
-            ViewBag.account = a;
+           Account account=GetAccountSession();
+            if (account == null)
+            {
+                TempData["err"] = "access denied!";
+                return RedirectToAction("list","home");
+            }
+            ViewBag.account = account;
             ViewBag.orderDate=DateTime.Now;
             Cart cart = GetCart();
             return View("views/Cart/contact.cshtml",cart);
